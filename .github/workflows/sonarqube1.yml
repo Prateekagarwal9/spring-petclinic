@@ -50,13 +50,20 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@v2
 
+      - name: Install SonarScanner CLI
+        run: |
+          wget -O sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+          unzip sonar-scanner.zip
+          mv sonar-scanner-4.7.0.2747-linux sonar-scanner
+          export PATH=$PATH:$GITHUB_WORKSPACE/sonar-scanner/bin
+
       - name: Analyze with SonarQube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.12-7/x64
-          PATH: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.12-7/x64/bin:${{ env.PATH }}
+          PATH: ${{ env.PATH }}:$GITHUB_WORKSPACE/sonar-scanner/bin
         run: |
           sonar-scanner \
             -Dsonar.projectKey=Prateekagarwal9_spring-petclinic_d7ed55e3-b94d-46d0-80c1-e5d73d14f325

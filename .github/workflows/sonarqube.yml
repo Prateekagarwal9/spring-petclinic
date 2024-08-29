@@ -30,7 +30,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn sonar:sonar \
-            -Dsonar.projectKey=your_project_key \
+            -Dsonar.projectKey=Prateekagarwal9_spring-petclinic_d7ed55e3-b94d-46d0-80c1-e5d73d14f325 \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
